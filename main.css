@@ -22,6 +22,20 @@
 .main {
     height: 300vh;
     background-color: #999;
+    
+
+}
+.favtitle{
+    
+    height: 30px;
+font-size: 2rem;
+
+
+}
+.aside {
+    
+    width: fit-content;
+    margin-top: 20px;
 }
 .films {
     display: flex;
@@ -61,8 +75,9 @@
 
 .favorite {
     
-    background-image: url(/imagenes/abstract-timekeeper.png);
-    background-size: contain;
+    /* background-image: url(/imagenes/abstract-timekeeper.png);
+    background-size: contain; */
+    background-color: #ead47c;
     font-family: 'Courier New', Courier, monospace;
     color: white;
 }
