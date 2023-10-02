@@ -12,7 +12,6 @@ const seriesLS = JSON.parse(localStorage.getItem('fav'));
 
 
 
-
 ///arrays vacios (listas de series)
 let serieList = [];
 let favorites = [];
@@ -32,7 +31,7 @@ function getSerie(event) {
             serieList = dataAPI;
             ///llamar funcion para que la pinte
             renderSerie(serieList)
-           
+
 
 
         });
@@ -41,11 +40,18 @@ function getSerie(event) {
 
 ///pintar una sola serie con etiquetas html
 
-function serieOne(serie) {
-    
 
+function serieOne(serie) {
     let html = '';
-    html += `<article id=${serie.show.id} class="js-serie-one serie-one">`
+
+
+
+    if (favorites.findIndex(item => item.show.id === serie.show.id) !== -1) {
+        html += `<article id=${serie.show.id} class="js-serie-one serie-one favorite">`
+    }
+
+    else { html += `<article id=${serie.show.id} class="js-serie-one serie-one">` }
+    console.log(favorites.findIndex(item => item.show.id === serie.show.id) !== -1)
     html += `<h2>${serie.show.name}</h2>`
 
     // html += `<span> Idioma original: ${serie.show.language}</span>`
@@ -56,11 +62,11 @@ function serieOne(serie) {
     else {
         html += `<img  src= "https://via.placeholder.com/210x295/ffffff/666666/?text=TV"></img>`
     }
-    
+
     html += `</article>`
     return html;
-   
-    
+
+
 
 }
 
@@ -83,14 +89,14 @@ function renderSeriefav(favorites) {
     }
     ///llamo a funcion que añade a favoritos a traves de evento
     addEventstoSeries()
-    
+
 }
 
 function handleclick(event) {
 
 
     const idSerieClicked = event.currentTarget.id;
-    
+
 
     let foundSerie = serieList.find(serie => serie.show.id == idSerieClicked);
 
@@ -99,30 +105,23 @@ function handleclick(event) {
 
     if (indexFav === -1) {
         favorites.push(foundSerie);
-        
-        
-        
-         
+
+
+
+
     }
     else {
         favorites.splice(indexFav, 1);
-        
+
     }
-    
-    
-   
-   
+
+
     console.log(favorites);
     ///llamo a funcion que pinta favorites
     renderSeriefav(favorites)
-   
-  
-  
-    
+    renderSerie(serieList)
 
     localStorage.setItem('fav', JSON.stringify(favorites));
-
-   
 
 }
 
@@ -133,8 +132,8 @@ if (seriesLS !== null) {
 
 else {
     addEventstoSeries()
-    
-   
+
+
 
 
 };
@@ -152,7 +151,7 @@ function addEventstoSeries() {
     for (const item of article) {
         item.addEventListener('click', handleclick)
 
-        
+
 
 
 
